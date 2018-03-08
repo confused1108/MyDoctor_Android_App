@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/ionic.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            var url="http://techon.esy.es/fixit/json.php";
+            $.getJSON(url,function(result){
+                console.log(result);
+                $.each(result, function(i, field){
+                    var patient_name=field.patient_name;
+                    var doctor_id=field.doctor_id;
+                    var date=field.appointment_date;
+                    var doctor;
+                    if(doctor_id=='1')
+                        doctor='Vijay Ahuja';
+                    else if(doctor_id=='2')
+                        doctor='Rajeev Agarwal';
+                    else if(doctor_id=='3')
+                        doctor='Ashok Masand';
+                    else
+                        doctor='B.K.Bansal';
+                    $(".list").append(" <a class='item item-avatar' href=''#'><img src='img/appointment.png'><h2>"+patient_name+"</h2><p>Doctor : "+doctor+"</p><p>"+date+"</p></a>");
+                });
+            });
+        });
+    </script>
+</head>
+<body style="background-color: beige">
+<div class="bar bar-header bar-royal">
+    <h1 class="title">My Doctor</h1>
+</div>
+
+<br><br>
+
+<div class="card">
+    <div class="item item-divider" style="text-align: center">
+        Previous Appointments..
+    </div>
+</div>
+<br>
+<div class="list">
+  <!--  <a class="item item-avatar" href="#">
+        <img src="img/appointment.png">
+        <h2>Raghav</h2>
+        <p>Doctor : Rajeev</p>
+        <p>25th August</p>
+    </a>
+    <a class="item item-avatar" href="#">
+        <img src="img/appointment.png">
+        <h2>Raghav</h2>
+        <p>Doctor : Rajeev</p>
+        <p>25th August</p>
+    </a>
+    <a class="item item-avatar" href="#">
+        <img src="img/appointment.png">
+        <h2>Raghav</h2>
+        <p>Doctor : Rajeev</p>
+        <p>25th August</p>
+    </a>
+    <a class="item item-avatar" href="#">
+        <img src="img/appointment.png">
+        <h2>Raghav</h2>
+        <p>Doctor : Rajeev</p>
+        <p>25th August</p>
+    </a>-->
+</div>
+</body>
+</html>

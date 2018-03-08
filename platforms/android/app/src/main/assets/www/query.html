@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/ionic.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $("#insert").click(function(){
+                var query=$("#query").val();
+                var dataString="query="+query+"&insert=";
+                if($.trim(query).length>0)
+                {
+                    $.ajax({
+                        type: "POST",
+                        url:"http://techon.esy.es/fixit/insert.php",
+                        data: dataString,
+                        crossDomain: true,
+                        cache: false,
+                        beforeSend: function(){ $("#insert").val('Connecting...');},
+                        success: function(data){
+                            if(data=="success")
+                            {
+                                alert("Query Submitted");
+                                $("#insert").val('submit');
+                            }
+                            else if(data=="error")
+                            {
+                                alert("Please Check the Fields");
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    alert("Fill the Required Fields");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="bar bar-header bar-royal">
+    <h1 class="title">My Doctor</h1>
+</div>
+
+<br><br>
+
+<div class="card">
+    <div class="item item-divider" style="text-align: center">
+        Ask your query..
+    </div>
+</div>
+<br>
+<div class="list">
+    <input type="hidden" id="id" value=""/>
+    <label class="item item-input item-floating-label">
+        <span class="input-label">Query</span>
+        <input type="text" placeholder="Your Query ..." required id="query">
+    </label>
+    <div class="item">
+        <input style="width: 200px; margin-right: auto; margin-left: auto; display:block;" type="button" id="insert" class="button button-full button-royal" value="Insert"/>
+    </div>
+</div>
+</body>
+</html>

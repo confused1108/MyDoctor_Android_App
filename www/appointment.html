@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/ionic.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $("#insert").click(function(){
+                var name=$("#name").val();
+                var number=$("#number").val();
+                var doctor=$("#doctor").val();
+                var day=$("#day").val();
+                var time=$("#time").val();
+                var dataString="name="+name+"&number="+number+"&doctor="+doctor+"&day="+day+"&time="+time+"&insert=";
+                if($.trim(name).length>0 & $.trim(number).length>0)
+                {
+                    $.ajax({
+                        type: "POST",
+                        url:"http://techon.esy.es/fixit/appointment.php",
+                        data: dataString,
+                        crossDomain: true,
+                        cache: false,
+                        beforeSend: function(){ $("#insert").val('Connecting...');},
+                        success: function(data){
+                            if(data=="success")
+                            {
+                                alert("Appointment Booked");
+                                $("#insert").val('submit');
+                            }
+                            else if(data=="error")
+                            {
+                                alert("Please Check the Fields");
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    alert("Fill the Required Fields");
+                }
+            });
+        });
+    </script>
+</head>
+<body style="background-color: beige">
+<div class="bar bar-header bar-royal">
+    <h1 class="title">My Doctor</h1>
+</div>
+
+<br><br>
+
+<div class="card">
+    <div class="item item-divider" style="text-align: center">
+        Book an Appointment..
+    </div>
+</div>
+
+<div class="list">
+    <input type="hidden" id="id" value=""/>
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">Patient Name</span>
+        <input type="text" id="name" required>
+    </label>
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">Mobile Number</span>
+        <input type="text" id="number" required>
+    </label>
+    <label class="item item-input item-select">
+        <div class="input-label">
+           Preferred Doctor
+        </div>
+        <select required id="doctor">
+            <option value="1">Vijay Ahuja</option>
+            <option value="2" selected>Rajeev Agarwal</option>
+            <option value="3">Ashok Masand</option>
+            <option value="4">B.K.Bansal</option>
+        </select>
+    </label>
+    <label class="item item-input item-select">
+        <div class="input-label">
+            Day
+        </div>
+        <select required id="day">
+            <option value="today">Today</option>
+            <option value="tomorrow" selected>Tomorrow</option>
+            <option value="dat">Day after Tomorrow</option>
+        </select>
+    </label>
+    <label class="item item-input item-select">
+        <div class="input-label">
+            Time Slot
+        </div>
+        <select required id="time">
+            <option value="10AM-12PM">10AM-12PM</option>
+            <option value="12PM-02PM" selected>12PM-2PM</option>
+            <option value="04PM-06PM">4-6PM</option>
+            <option value="06PM-08PM">6-8PM</option>
+        </select>
+    </label>
+    <br>
+
+    <div class="item">
+        <input style="width: 200px; margin-right: auto; margin-left: auto; display:block;" type="button" id="insert" class="button button-full button-royal" value="Insert"/>
+    </div>
+</div>
+</body>
+</html>

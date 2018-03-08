@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/ionic.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $("#insert").click(function(){
+                var name=$("#name").val();
+                var number=$("#number").val();
+                var username=$("#username").val();
+                var password=$("#password").val();
+                var email=$("#email").val();
+                var dataString="name="+name+"&number="+number+"&password="+password+"&email="+email+"&username="+username+"&insert=";
+                if($.trim(name).length>0 & $.trim(number).length>0)
+                {
+                    $.ajax({
+                        type: "POST",
+                        url:"http://techon.esy.es/fixit/register.php",
+                        data: dataString,
+                        crossDomain: true,
+                        cache: false,
+                        beforeSend: function(){ $("#insert").val('Connecting...');},
+                        success: function(data){
+                            if(data=="success")
+                            {
+                                window.location = "home.html";
+                                $("#insert").val('submit');
+                            }
+                            else if(data=="error")
+                            {
+                                alert("Please Check the Fields");
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    alert("Fill the Required Fields");
+                }
+            });
+        });
+    </script>
+</head>
+<body style="background-color: beige">
+<div class="bar bar-header bar-royal">
+    <h1 class="title">My Doctor</h1>
+</div>
+
+<br><br><br><br>
+
+<div class="list">
+    <label class="item item-input">
+        <span class="input-label">Name</span>
+        <input type="text" required id="name">
+    </label>
+    <label class="item item-input">
+        <span class="input-label">Username</span>
+        <input type="text" required id="username">
+    </label>
+    <label class="item item-input">
+        <span class="input-label">email</span>
+        <input type="email" required id="email">
+    </label>
+    <label class="item item-input">
+        <span class="input-label">Phone no.</span>
+        <input type="text" required id="number">
+    </label>
+    <label class="item item-input">
+        <span class="input-label">Password</span>
+        <input type="password" required id="password">
+    </label>
+    <br><br>
+    <div class="item">
+        <input style="width: 200px; margin-right: auto; margin-left: auto; display:block;" type="button" id="insert" class="button button-full button-royal" value="Insert"/>
+    </div>
+</div>
+
+</body>
+</html>

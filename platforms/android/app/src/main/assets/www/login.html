@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/ionic.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#insert").click(function () {
+                var username = $("#username").val();
+                var password = $("#password").val();
+                authenticate(username, password);
+            });
+        });
+
+        //authenticate function to make ajax call
+        function authenticate(username, password) {
+            $.ajax
+            ({
+                type: "POST",
+                url: "../login.php",
+                dataType: 'json',
+                async: false,
+                data: '{"username": "' + username + '", "password" : "' + password + '"}',
+                success: function () {
+                    window.location = "home.html";
+                    $("#insert").val('submit');
+                }
+            })
+        }
+    </script>
+    {
+    if(data=="success")
+    {
+
+    window.location = "home.html";
+    $("#insert").val('submit');
+    }
+    else if(data=="error")
+    {
+    alert("Please Check the Fields");
+    }
+    }
+</head>
+<body>
+<div class="bar bar-header bar-royal">
+    <h1 class="title">My Doctor</h1>
+</div>
+
+<br><br><br><br><br><br>
+
+<div class="list">
+    <label class="item item-input">
+        <span class="input-label">Username</span>
+        <input type="text" id="username" required>
+    </label>
+    <label class="item item-input">
+        <span class="input-label">Password</span>
+        <input type="password" id="password" required>
+    </label>
+    <br><br>
+    <div class="item">
+        <input style="width: 200px; margin-right: auto; margin-left: auto; display:block;" type="button" id="insert" class="button button-full button-royal" value="Insert"/>
+    </div>
+</div>
+
+</body>
+</html>
