@@ -39,3 +39,4 @@ public class MainActivity extends CordovaActivity
         loadUrl(launchUrl);
     }
 }
+//an amazing app made by hitesh ahuja who is a great developer
